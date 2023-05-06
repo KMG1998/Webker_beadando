@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "mobilalk-vizora": {
+      "hosting": {
+        "webker-beadando": [
+          "webkert-vizora"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "mobilalk-vizora"
+  }
+}

@@ -1,0 +1,52 @@
+<div class="flex h-full flex-col justify-center items-center">
+  <h1 class="text-center">Regisztráció</h1>
+  <div class="flex flex-col justify-center items-center gap-4">
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input
+        type="email"
+        matInput
+        [formControl]="password"
+        placeholder="Email"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Jelszó</mat-label>
+      <input
+        type="password"
+        matInput
+        [formControl]="password"
+        placeholder="Jelszó"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Jelszó újra</mat-label>
+      <input
+        type="password"
+        matInput
+        [formControl]="passwordRep"
+        placeholder="Jelszó"
+      />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <input
+        matInput
+        [matDatepicker]="picker"
+        [formControl]="birthDate"
+        readonly
+      />
+      <mat-label>Születési dátum</mat-label>
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <div class="flex flex-col gap-10">
+      <button mat-raised-button color="primary" (click)="register()">
+        Regisztráció
+      </button>
+      <button mat-button [routerLink]="'/login'">Belépés</button>
+    </div>
+  </div>
+</div>
