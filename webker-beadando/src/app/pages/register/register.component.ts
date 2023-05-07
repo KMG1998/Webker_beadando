@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { AuthService } from 'src/app/shared/services/auth.service';
-import { UserData } from '../../shared/model/UserData';
-import { Timestamp } from '@angular/fire/firestore';
-import { UserService } from 'src/app/shared/services/user.service';
-import { DateFormatPipe } from 'src/app/shared/pipes/date-format.pipe';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup} from '@angular/forms';
+import {AuthService} from 'src/app/shared/services/auth.service';
+import {UserData} from '../../shared/model/UserData';
+import {Timestamp} from '@angular/fire/firestore';
+import {UserService} from 'src/app/shared/services/user.service';
+import {DateFormatPipe} from 'src/app/shared/pipes/date-format.pipe';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -22,13 +22,15 @@ export class RegisterComponent implements OnInit {
     birthDate: new FormControl(''),
   });
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   constructor(
     private router: Router,
     private authService: AuthService,
     private userService: UserService
-  ) {}
+  ) {
+  }
 
   register() {
     let email = this.signUpForm.get('email')?.value as string;
@@ -45,14 +47,14 @@ export class RegisterComponent implements OnInit {
             lastLogin: Timestamp.now(),
             userId: cred.user?.uid as string,
           };
-          this.userService
+          this.authService.logout().then(() => this.userService
             .create(userData)
             .then((_) => {
               this.router.navigateByUrl('/login');
             })
             .catch((error) => {
               console.error(error);
-            });
+            })).catch((error) => console.log(error))
         })
         .catch((error) => {
           console.error(error);

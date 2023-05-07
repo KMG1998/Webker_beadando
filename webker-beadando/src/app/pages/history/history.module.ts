@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { HistoryRoutingModule } from './history-routing.module';
 import { HistoryComponent } from './history.component';
+import {MatTableModule} from "@angular/material/table";
+import {MatIconModule} from "@angular/material/icon";
+import {MatButtonModule} from "@angular/material/button";
 
 
 @NgModule({
@@ -11,7 +14,10 @@ import { HistoryComponent } from './history.component';
   ],
   imports: [
     CommonModule,
-    HistoryRoutingModule
+    HistoryRoutingModule,
+    MatTableModule,
+    MatButtonModule,
+    MatIconModule
   ]
 })
 export class HistoryModule { }

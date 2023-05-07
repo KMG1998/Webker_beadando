@@ -3,6 +3,7 @@ import {StatementService} from "../../shared/services/statement.service";
 import {FormBuilder} from "@angular/forms";
 import {Timestamp} from "@angular/fire/firestore";
 import {Statement} from "../../shared/model/Statement";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-upload',
@@ -16,7 +17,7 @@ export class UploadComponent implements OnInit{
   });
 
 
-  constructor(private _formBuilder: FormBuilder,private stmtService:StatementService,) {
+  constructor(private _formBuilder: FormBuilder,private stmtService:StatementService,private router:Router) {
   }
   ngOnInit(): void {
   }
@@ -28,7 +29,7 @@ export class UploadComponent implements OnInit{
       const stmt:Statement = {
         approved: false, timestamp: Timestamp.now(), userid: userId, waterAmount: amount
       };
-      this.stmtService.create(stmt).then(()=>console.log(stmt));
+      this.stmtService.create(stmt).then(()=>this.router.navigateByUrl('/main')).catch((error)=>console.error(error));
     }
   }
 

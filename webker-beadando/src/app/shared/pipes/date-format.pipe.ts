@@ -7,9 +7,9 @@ import localeHuExtra from '@angular/common/locales/extra/hu';
   name: 'dateFormat',
 })
 export class DateFormatPipe implements PipeTransform {
-  transform(value: string, ...args: unknown[]): string {
+  transform(value: string, format?:string): string {
     registerLocaleData(hu, localeHuExtra);
-    const format = 'YYYY.MM.dd';
+    format = format? format:'YYYY.MM.dd';
     const locale = 'hu';
     const formattedDate = formatDate(value, format, locale);
     return formattedDate;

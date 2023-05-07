@@ -21,6 +21,7 @@ export class AuthService {
   }
 
   logout() {
+    localStorage.removeItem('user');
     return this.auth.signOut();
   }
 

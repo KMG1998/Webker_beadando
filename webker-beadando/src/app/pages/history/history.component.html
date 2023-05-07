@@ -1,1 +1,30 @@
-<p>history works!</p>
+<div class="mx-5 w-full h-full">
+  <h2>Korábbi bejelentések</h2>
+  <mat-table #table [dataSource]="statements" matSort>
+    <ng-container matColumnDef="date">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Dátum</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.date}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="waterAmount">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Mennyiség</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.waterAmount}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="approved">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Jóváhagyva</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.approved ? "Jóváhagyva" : "Jóváhagyásra vár"}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Műveletek</mat-header-cell>
+      <mat-cell *matCellDef="let element;let i = index">
+        <button mat-icon-button color="warn" (click)="deleteStatement(i)" *ngIf="!(element.approved)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>

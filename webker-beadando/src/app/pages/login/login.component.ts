@@ -1,25 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  email = new FormControl('');
-  password = new FormControl('');
+  loginForm:FormGroup = this.fb.group({
+    email:[''],
+    password:[''],
+  })
 
   ngOnInit(): void {}
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(private router: Router, private authService: AuthService,private fb: FormBuilder) {}
 
   login() {
-    if (this.email.value && this.password.value) {
+    let email = this.loginForm.get('email')?.value as string;
+    let password = this.loginForm.get('password')?.value as string;
+    if (email && password) {
       this.authService
-        .login(this.email.value.toString(), this.password.value.toString())
+        .login(email, password)
         .then((cred) => {
           if(cred.user) {
             localStorage.setItem('user', JSON.stringify(cred.user))
@@ -27,7 +30,14 @@ export class LoginComponent implements OnInit {
           }
         });
     } else {
-      console.error(this.email.value, this.password.value);
+      console.error(email, password);
     }
+  }
+
+  get email(){
+    return this.loginForm.get('email')
+  }
+  get password(){
+    return this.loginForm.get('password')
   }
 }

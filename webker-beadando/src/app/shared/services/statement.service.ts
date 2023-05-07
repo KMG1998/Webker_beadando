@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {Statement} from "../model/Statement";
+import {getAll} from "@angular/fire/remote-config";
 
 @Injectable({
   providedIn: 'root'
@@ -14,13 +15,13 @@ export class StatementService {
     return this.afs.collection<Statement>(this.collectionName).doc().set(stmt);
   }
 
-  getAll(){
-    return this.afs.collection<Statement>(this.collectionName).get();
+  getAll(uid:string){
+    return this.afs.collection<Statement>(this.collectionName,ref => ref.where('userid','==',uid)).get();
   }
 
-  getWithLimit(limit:number){
+  getWithLimit(uid:string,limit:number){
     return this.afs.collection<Statement>(this.collectionName,ref =>
-      ref.limit(limit)).get();
+      ref.where('userid','==',uid).limit(limit).orderBy('timestamp','desc')).get();
   }
 
   getById(id: string) {
@@ -30,8 +31,8 @@ export class StatementService {
       .valueChanges();
   }
 
-  update(stmt: Statement) {
-    return this.afs.collection<Statement>(this.collectionName).doc().set(stmt);
+  update(id:string,stmt: Statement) {
+    return this.afs.collection<Statement>(this.collectionName).doc(id).set(stmt);
   }
 
   delete(id: string) {
