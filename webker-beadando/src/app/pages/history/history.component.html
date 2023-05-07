@@ -1,5 +1,5 @@
-<div class="mx-5 w-full h-full">
-  <h2>Korábbi bejelentések</h2>
+<div class="w-full h-full mx-1 sm:mx-5">
+  <h2>korábbi bejelentések</h2>
   <mat-table #table [dataSource]="statements" matSort>
     <ng-container matColumnDef="date">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Dátum</mat-header-cell>
@@ -12,13 +12,13 @@
     </ng-container>
 
     <ng-container matColumnDef="approved">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Jóváhagyva</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.approved ? "Jóváhagyva" : "Jóváhagyásra vár"}} </mat-cell>
+      <mat-header-cell class="hidden sm:flex" *matHeaderCellDef mat-sort-header> Jóváhagyva</mat-header-cell>
+      <mat-cell class="hidden sm:flex" *matCellDef="let element"> {{element.approved ? "Jóváhagyva" : "Jóváhagyásra vár"}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="actions">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Műveletek</mat-header-cell>
-      <mat-cell *matCellDef="let element;let i = index">
+      <mat-header-cell  *matHeaderCellDef mat-sort-header >Műveletek</mat-header-cell>
+      <mat-cell  *matCellDef="let element;let i = index">
         <button mat-icon-button color="warn" (click)="deleteStatement(i)" *ngIf="!(element.approved)">
           <mat-icon>delete</mat-icon>
         </button>

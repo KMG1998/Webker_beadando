@@ -14,6 +14,12 @@
           formControlName="email"
           placeholder="Email"
         />
+        <mat-error *ngIf="email?.errors?.['email']">
+          Hibás email formátum
+        </mat-error>
+        <mat-error *ngIf="email?.errors?.['required']">
+          kötelező mező
+        </mat-error>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Jelszó</mat-label>
@@ -23,6 +29,12 @@
           formControlName="password"
           placeholder="Jelszó"
         />
+        <mat-error *ngIf="password?.errors?.['required']">
+          kötelező mező
+        </mat-error>
+        <mat-error *ngIf="password?.errors?.['minlength']">
+          Túl rövid jelszó
+        </mat-error>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Jelszó újra</mat-label>
@@ -32,6 +44,15 @@
           formControlName="passwordRep"
           placeholder="Jelszó"
         />
+        <mat-error *ngIf="!passwordsMatch">
+          A két jelszó nem egyezik
+        </mat-error>
+        <mat-error *ngIf="passwordRep?.errors?.['required']">
+          kötelező mező
+        </mat-error>
+        <mat-error *ngIf="passwordRep?.errors?.['minlength']">
+          Túl rövid jelszó
+        </mat-error>
       </mat-form-field>
       <mat-form-field appearance="fill">
         <input
@@ -46,10 +67,13 @@
           [for]="picker"
         ></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="password?.errors?.['required']">
+          kötelező mező
+        </mat-error>
       </mat-form-field>
     </form>
     <div class="flex flex-col gap-10">
-      <button mat-raised-button color="primary" (click)="register()">
+      <button mat-raised-button color="primary" (click)="register()" [disabled]="!signUpForm.valid">
         Regisztráció
       </button>
       <button mat-button [routerLink]="'/login'">Belépés</button>

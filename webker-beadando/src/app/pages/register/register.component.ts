@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from 'src/app/shared/services/auth.service';
 import {UserData} from '../../shared/model/UserData';
 import {Timestamp} from '@angular/fire/firestore';
@@ -16,10 +16,10 @@ export class RegisterComponent implements OnInit {
   datePipe = new DateFormatPipe();
 
   signUpForm = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl(''),
-    passwordRep: new FormControl(''),
-    birthDate: new FormControl(''),
+    email: new FormControl('',{ validators: [Validators.required,Validators.email], updateOn: "blur" }),
+    password: new FormControl('',{ validators: [Validators.required,Validators.minLength(6)], updateOn: "change" }),
+    passwordRep: new FormControl('',{ validators: [Validators.required,Validators.minLength(6)], updateOn: "blur" }),
+    birthDate: new FormControl('',{ validators: [Validators.required], updateOn: "blur" }),
   });
 
   ngOnInit(): void {
@@ -62,5 +62,21 @@ export class RegisterComponent implements OnInit {
     } else {
       console.error(password + '' + passwordRep);
     }
+  }
+
+  get email(){
+    return this.signUpForm.get('email')
+  }
+  get password(){
+    return this.signUpForm.get('password')
+  }
+  get passwordRep(){
+    return this.signUpForm.get('passwordRep')
+  }
+  get birthDate(){
+    return this.signUpForm.get('birthDate')
+  }
+  get passwordsMatch(){
+    return this.password?.value === this.passwordRep?.value
   }
 }

@@ -1,11 +1,11 @@
 <div class="navbar bg-base-100" *ngIf="loggedInUser">
-  <div class="flex-1">
+  <div class="flex-1 hidden md:flex">
     <a class="btn btn-ghost normal-case text-xl w-max h-max" routerLink="/main">
-      <img src="assets/svg/water_drop.svg" width="35" height="35" class="fill-[#4f42b5]">
+      <img src="assets/svg/water_drop.svg" width="35" height="35">
     </a>
   </div>
-  <div class="flex-1 items-center justify-center">
-    <ul class="menu menu-horizontal px-1 space-x-5">
+  <div class="sm:flex-1 items-center justify-center">
+    <ul class="menu menu-horizontal flex-col sm:flex-row sm:px-1 sm:space-x-5">
       <li>
         <a class="btn btn-ghost normal-case" routerLink="/main">Főoldal</a>
       </li>
@@ -16,12 +16,7 @@
     </ul>
   </div>
   <div class="flex-1 items-center justify-end">
-    <ul class="menu menu-horizontal px-1">
-      <li>
-        <a class="btn btn-ghost normal-case text-xl w-max h-max" routerLink="/profile">
-          <img src="assets/svg/profile.svg" width="35" height="35">
-        </a>
-      </li>
+    <ul class="menu menu-horizontal flex-col sm:flex-row sm:px-1 sm:space-x-5">
       <li>
         <button class="btn btn-ghost normal-case text-xl w-max h-max" (click)="logout()">
           <img src="assets/svg/logout.svg" width="35" height="35">

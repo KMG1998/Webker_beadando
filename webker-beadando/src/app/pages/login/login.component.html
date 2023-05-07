@@ -5,7 +5,13 @@
         (ngSubmit)="login()">
     <mat-form-field>
       <mat-label>Email</mat-label>
-      <input type="email" matInput formControlName="email" name="email" placeholder="Email"/>
+      <input type="email" matInput formControlName="email" placeholder="Email"/>
+      <mat-error *ngIf="email?.errors?.['email']">
+        Hibás email formátum
+      </mat-error>
+      <mat-error *ngIf="email?.errors?.['required']">
+        kötelező mező
+      </mat-error>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Jelszó</mat-label>
@@ -15,8 +21,14 @@
         formControlName="password"
         placeholder="Jelszó"
       />
+      <mat-error *ngIf="password?.errors?.['required']">
+        kötelező mező
+      </mat-error>
+      <mat-error *ngIf="password?.errors?.['minlength']">
+        Túl rövid jelszó
+      </mat-error>
     </mat-form-field>
-    <button type="submit" mat-raised-button color="primary">Belépés</button>
+    <button type="submit" mat-raised-button color="primary" [disabled]="!loginForm.valid">Belépés</button>
   </form>
   <button mat-button [routerLink]="'/register'">Regisztráció</button>
 </div>

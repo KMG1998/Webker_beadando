@@ -16,9 +16,10 @@ import {DomSanitizer} from "@angular/platform-browser";
 })
 export class MainComponent implements OnInit {
   statements: Array<StatementDisplay> = [];
-  displayedColumns: Array<String> = ['date', 'waterAmount', 'approved', 'actions'];
   datePipe: DateFormatPipe = new DateFormatPipe();
   userId = JSON.parse(localStorage.getItem('user') as string)['uid'];
+  hidden:boolean = false;
+  displayedColumns: Array<String> = ['date', 'waterAmount', 'approved', 'actions'];
 
   constructor(private router: Router,
               private stmtService: StatementService,
@@ -28,6 +29,9 @@ export class MainComponent implements OnInit {
       "delete",
       this.domSanitizer.bypassSecurityTrustResourceUrl("assets/svg/delete.svg")
     );
+    if (window.screen.width === 360) {
+      this.hidden = true;
+    }
     //simulate approval on back-end
     const rndInt = Math.floor(Math.random() * 10) + 1
     console.log(rndInt)
@@ -76,6 +80,5 @@ export class MainComponent implements OnInit {
       console.log(error)
     })
   }
-
 
 }
