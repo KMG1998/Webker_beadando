@@ -1,25 +1,31 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {AuthService} from "../../services/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss']
 })
-export class MenuComponent {
+export class MenuComponent implements OnInit{
   @Input() currentPage: string = '';
   @Output() selectedPage: EventEmitter<string> = new EventEmitter();
   @Output() onCloseSidenav: EventEmitter<boolean> = new EventEmitter();
 
-  constructor() {
-    console.log('constructor called.');
+  loggedInUser?: firebase.default.User | null;
+
+  constructor(private authService:AuthService,private router: Router) {
   }
 
   ngOnInit(): void {
-    console.log('ngOnInit called.');
-  }
-
-  ngAfterViewInit(): void {
-    console.log('ngAfterViewInit called.');
+    this.authService.isUserLoggedIn().subscribe(user => {
+      console.log(user);
+      this.loggedInUser = user;
+      localStorage.setItem('user', JSON.stringify(this.loggedInUser));
+    }, error => {
+      console.error(error);
+      localStorage.setItem('user', JSON.stringify('null'));
+    });
   }
 
   menuSwitch() {
@@ -31,6 +37,6 @@ export class MenuComponent {
   }
 
   logout(){
-
+    this.authService.logout().then(() => this.router.navigateByUrl('/login'))
   }
 }

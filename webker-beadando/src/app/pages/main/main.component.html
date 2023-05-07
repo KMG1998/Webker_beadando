@@ -1,1 +1,6 @@
-<app-menu></app-menu>
+<mat-list>
+      <mat-list-item *ngFor="let obj of statements">
+        {{ obj.timestamp.toDate() }} {{obj.approved.toString()}}
+        <mat-icon>close</mat-icon>
+      </mat-list-item>
+</mat-list>

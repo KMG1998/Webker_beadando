@@ -21,8 +21,10 @@ export class LoginComponent implements OnInit {
       this.authService
         .login(this.email.value.toString(), this.password.value.toString())
         .then((cred) => {
-          console.log(cred);
-          this.router.navigateByUrl('/main');
+          if(cred.user) {
+            localStorage.setItem('user', JSON.stringify(cred.user))
+            this.router.navigateByUrl('/main')
+          }
         });
     } else {
       console.error(this.email.value, this.password.value);

@@ -11,9 +11,10 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import { AngularFireModule } from '@angular/fire/compat';
 import { DateFormatPipe } from './shared/pipes/date-format.pipe';
+import {MenuComponent} from "./shared/components/menu/menu.component";
 
 @NgModule({
-  declarations: [AppComponent, DateFormatPipe],
+  declarations: [AppComponent, DateFormatPipe,MenuComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
