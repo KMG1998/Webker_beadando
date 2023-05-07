@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 
 const routes: Routes = [
   {
@@ -22,6 +22,9 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/login/login.module').then((m) => m.LoginModule),
   },
+  {path: 'profile', loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule),},
+  {path: 'upload', loadChildren: () => import('./pages/upload/upload.module').then(m => m.UploadModule),},
+  {path: 'history', loadChildren: () => import('./pages/history/history.module').then(m => m.HistoryModule),},
   {
     path: '**',
     loadChildren: () =>
@@ -33,4 +36,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}

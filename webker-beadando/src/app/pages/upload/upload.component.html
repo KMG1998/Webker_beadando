@@ -1,0 +1,25 @@
+<app-menu></app-menu>
+<div class="flex h-full flex-col justify-center items-center">
+  <h1 class="text-center">Új bejelentés</h1>
+  <div class="flex flex-col">
+    <form
+      [formGroup]="uploadForm"
+      (ngSubmit)="createStatement()"
+      class="flex flex-col justify-center items-center"
+    >
+      <mat-form-field>
+        <mat-label>Mennyiség(m<sup>3</sup>)</mat-label>
+        <input
+          type="number"
+          matInput
+          formControlName="amount"
+          placeholder="0"
+        />
+      </mat-form-field>
+      <mat-checkbox class="example-margin" formControlName="accepted" color="primary">Az adat megfelel a valóságnak</mat-checkbox>
+      <button type="submit" mat-raised-button color="primary">
+        Regisztráció
+      </button>
+    </form>
+  </div>
+</div>
