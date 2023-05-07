@@ -16,7 +16,7 @@ export class StatementService {
   }
 
   getAll(uid:string){
-    return this.afs.collection<Statement>(this.collectionName,ref => ref.where('userid','==',uid)).get();
+    return this.afs.collection<Statement>(this.collectionName,ref => ref.where('userid','==',uid).orderBy('timestamp','desc')).get();
   }
 
   getWithLimit(uid:string,limit:number){

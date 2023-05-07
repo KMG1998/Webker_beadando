@@ -35,9 +35,8 @@ export class RegisterComponent implements OnInit {
   register() {
     let email = this.signUpForm.get('email')?.value as string;
     let password = this.signUpForm.get('password')?.value as string;
-    let passwordRep = this.signUpForm.get('passwordRep')?.value as string;
     let birthDate = this.signUpForm.get('birthDate')?.value as string;
-    if (password && passwordRep && password === passwordRep) {
+    if (this.signUpForm.valid && this.passwordsMatch) {
       this.authService
         .signup(email, password)
         .then((cred) => {
@@ -57,10 +56,8 @@ export class RegisterComponent implements OnInit {
             })).catch((error) => console.log(error))
         })
         .catch((error) => {
-          console.error(error);
+          alert(error.message);
         });
-    } else {
-      console.error(password + '' + passwordRep);
     }
   }
 

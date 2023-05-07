@@ -1,11 +1,13 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
+import {AuthGuard} from "./shared/services/auth-guard.service";
 
 const routes: Routes = [
   {
     path: 'main',
     loadChildren: () =>
       import('./pages/main/main.module').then((m) => m.MainModule),
+    canActivate:[AuthGuard],
   },
   {
     path: 'login',
@@ -22,8 +24,16 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/login/login.module').then((m) => m.LoginModule),
   },
-  {path: 'upload', loadChildren: () => import('./pages/upload/upload.module').then(m => m.UploadModule),},
-  {path: 'history', loadChildren: () => import('./pages/history/history.module').then(m => m.HistoryModule),},
+  {
+    path: 'upload',
+    loadChildren: () => import('./pages/upload/upload.module').then(m => m.UploadModule),
+    canActivate:[AuthGuard],
+  },
+  {
+    path: 'history',
+    loadChildren: () => import('./pages/history/history.module').then(m => m.HistoryModule),
+    canActivate:[AuthGuard],
+  },
   {
     path: '**',
     loadChildren: () =>

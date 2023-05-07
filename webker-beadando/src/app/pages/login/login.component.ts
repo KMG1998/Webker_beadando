@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   login() {
     let email = this.loginForm.get('email')?.value as string;
     let password = this.loginForm.get('password')?.value as string;
-    if (email && password) {
+    if (this.loginForm.valid) {
       this.authService
         .login(email, password)
         .then((cred) => {
@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('user', JSON.stringify(cred.user))
             this.router.navigateByUrl('/main')
           }
-        });
+        }).catch((error) => {alert(error.message)})
     } else {
       console.error(email, password);
     }
