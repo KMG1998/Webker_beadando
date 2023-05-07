@@ -12,6 +12,8 @@ import { provideStorage, getStorage } from '@angular/fire/storage';
 import { AngularFireModule } from '@angular/fire/compat';
 import { DateFormatPipe } from './shared/pipes/date-format.pipe';
 import {MenuComponent} from "./shared/components/menu/menu.component";
+import {MatMenuModule} from "@angular/material/menu";
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [AppComponent, DateFormatPipe,MenuComponent],
@@ -24,6 +26,8 @@ import {MenuComponent} from "./shared/components/menu/menu.component";
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
+    MatMenuModule,
+    MatIconModule,
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'hu-HU' }],
   bootstrap: [AppComponent],

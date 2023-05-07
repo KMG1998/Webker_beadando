@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {StatementService} from "../../shared/services/statement.service";
-import {FormBuilder} from "@angular/forms";
+import {FormBuilder, Validators} from "@angular/forms";
 import {Timestamp} from "@angular/fire/firestore";
 import {Statement} from "../../shared/model/Statement";
 import {Router} from "@angular/router";
@@ -12,8 +12,8 @@ import {Router} from "@angular/router";
 })
 export class UploadComponent implements OnInit{
   uploadForm = this._formBuilder.group({
-    accepted: false,
-    amount : '',
+    accepted: [false,{ validators: [Validators.required], updateOn: "change" }],
+    amount : ['',{ validators: [Validators.required,Validators.min(1)], updateOn: "change" }]
   });
 
 
@@ -23,14 +23,26 @@ export class UploadComponent implements OnInit{
   }
 
   createStatement():void{
-    let amount = this.uploadForm.get('amount')?.value as string;
-    if(this.uploadForm.get('accepted')?.value && amount){
-      let userId = JSON.parse(localStorage.getItem('user') as string)['uid'];
-      const stmt:Statement = {
-        approved: false, timestamp: Timestamp.now(), userid: userId, waterAmount: amount
-      };
-      this.stmtService.create(stmt).then(()=>this.router.navigateByUrl('/main')).catch((error)=>console.error(error));
+    if(this.accepted?.value == true) {
+      console.log(this.uploadForm.errors)
+      if (this.uploadForm.valid) {
+        let userId = JSON.parse(localStorage.getItem('user') as string)['uid'];
+        const stmt: Statement = {
+          approved: false,
+          timestamp: Timestamp.now(),
+          userid: userId,
+          waterAmount: this.uploadForm.get('amount')?.value as string
+        };
+        this.stmtService.create(stmt).then(() => this.router.navigateByUrl('/main')).catch((error) => console.error(error));
+      }
+    }else {
+      this.accepted?.setErrors({'required':true});
     }
   }
-
+  get accepted(){
+    return this.uploadForm.get('accepted')
+  }
+  get amount(){
+    return this.uploadForm.get('amount')
+  }
 }

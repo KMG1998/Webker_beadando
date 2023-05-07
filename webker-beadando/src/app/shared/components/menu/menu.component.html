@@ -1,4 +1,4 @@
-<div class="navbar bg-base-100" *ngIf="loggedInUser">
+<div class="navbar bg-base-100 hidden sm:flex" *ngIf="loggedInUser">
   <div class="flex-1 hidden md:flex">
     <a class="btn btn-ghost normal-case text-xl w-max h-max" routerLink="/main">
       <img src="assets/svg/water_drop.svg" width="35" height="35">
@@ -24,4 +24,24 @@
       </li>
     </ul>
   </div>
+</div>
+
+<div class="flex sm:hidden">
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <img src="assets/svg/menu.svg">
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <a routerLink="/main">Főoldal</a>
+    </button>
+    <button mat-menu-item>
+      <a routerLink="/upload">Új bejelentés</a>
+    </button>
+    <button mat-menu-item>
+      <a routerLink="/history">Korábbi bejelentések</a>
+    </button>
+    <button class="btn btn-ghost normal-case text-xl w-max h-max" (click)="logout()">
+      <img src="assets/svg/logout.svg" width="35" height="35">
+    </button>
+  </mat-menu>
 </div>
